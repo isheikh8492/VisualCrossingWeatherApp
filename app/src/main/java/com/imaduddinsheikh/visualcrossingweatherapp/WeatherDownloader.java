@@ -62,17 +62,51 @@ public class WeatherDownloader {
             JSONObject jObjMain = new JSONObject(s);
 
 
-            // "dt" section
+            // "currentDateTime" section
             long dt = jObjMain.getJSONObject("currentConditions").getLong("datetimeEpoch");
             Date dateTime = new Date(dt * 1000); // Java time values need milliseconds
             SimpleDateFormat fullDate =
                     new SimpleDateFormat("EEE MMM dd h:mm a, yyyy", Locale.getDefault());
-            String date = fullDate.format(dateTime);
+            String jCurrentDateTime = fullDate.format(dateTime);
 
 
-            String humidity ="0";
-            String currentTemp = "0";
-            weatherObj = new Weather(date, currentTemp, humidity);
+            // "currentTemp" section
+            String jCurrentTemp = jObjMain.getJSONObject("currentConditions").getString("temp");
+
+            // "currentFeelsLike" section
+            String jCurrentFeelsLike = jObjMain.getJSONObject("currentConditions").getString("feelslike");
+
+            // "currentHumidity" section
+            String jCurrentHumidity = jObjMain.getJSONObject("currentConditions").getString("humidity");
+
+            // "currentUvIndex" section
+            String jCurrentUvIndex = jObjMain.getJSONObject("currentConditions").getString("uvindex");
+
+            // "currentConditions" section
+            String jCurrentConditions = jObjMain.getJSONObject("currentConditions").getString("conditions");
+
+            // "currentCloudCover" section
+            String jCurrentCloudCover = jObjMain.getJSONObject("currentConditions").getString("cloudcover");
+
+            // "currentWindDir" section
+            String jCurrentWindDir = jObjMain.getJSONObject("currentConditions").getString("winddir");
+
+            // "currentWindSpeed" section
+            String jCurrentWindSpeed = jObjMain.getJSONObject("currentConditions").getString("windspeed");
+
+            // "currentWindGust" section
+            String jCurrentWindGust = jObjMain.getJSONObject("currentConditions").getString("windgust");
+
+            // "currentVisibility" section
+            String jCurrentVisibility = jObjMain.getJSONObject("currentConditions").getString("visibility");
+
+            // "currentSunrise" section
+            Long jCurrentSunrise = jObjMain.getJSONObject("currentConditions").getLong("sunriseEpoch");
+
+            // "currentSunset" section
+            Long jCurrentSunset = jObjMain.getJSONObject("currentConditions").getLong("sunsetEpoch");
+
+            weatherObj = new Weather(jCurrentDateTime, jCurrentTemp, jCurrentFeelsLike, jCurrentHumidity, jCurrentUvIndex, jCurrentConditions, jCurrentCloudCover, jCurrentWindDir, jCurrentWindSpeed, jCurrentWindGust, jCurrentVisibility, jCurrentSunrise, jCurrentSunset);
             mainActivity.updateData(weatherObj);
         } catch (Exception e) {
             e.printStackTrace();

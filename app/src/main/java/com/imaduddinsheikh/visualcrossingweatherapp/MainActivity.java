@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             currentDateTimeTxtView.setText(noInternet);
             return;
         }
-        Log.d(TAG, "updateData: " + weather.getCurrentDateTime());
+        Log.d(TAG, "updateData: " + weather.toString());
         currentDateTimeTxtView.setText(weather.getCurrentDateTime());
 
     }
