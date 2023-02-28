@@ -2,13 +2,26 @@ package com.imaduddinsheikh.visualcrossingweatherapp;
 
 public class Weather {
 
-    private final String dateTime;
+    private final String currentDateTime;
 
-    public Weather(String dateTime) {
-        this.dateTime = dateTime;
+
+    private final String currentTemp;
+    private final String currentHumidity;
+
+
+
+
+    public Weather(String currentDateTime, String currentTemp, String currentHumidity) {
+        this.currentDateTime = currentDateTime;
+        this.currentTemp = currentTemp;
+        this.currentHumidity = currentHumidity;
     }
 
-    String getDateTime() {
-        return this.dateTime;
+    String getCurrentDateTime() {
+        return this.currentDateTime;
     }
+
+    String getCurrentHumidity() { return this.currentHumidity;}
+
+
 }

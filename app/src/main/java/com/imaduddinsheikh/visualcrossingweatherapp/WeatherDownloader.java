@@ -69,7 +69,10 @@ public class WeatherDownloader {
                     new SimpleDateFormat("EEE MMM dd h:mm a, yyyy", Locale.getDefault());
             String date = fullDate.format(dateTime);
 
-            weatherObj = new Weather(date);
+
+            String humidity ="0";
+            String currentTemp = "0";
+            weatherObj = new Weather(date, currentTemp, humidity);
             mainActivity.updateData(weatherObj);
         } catch (Exception e) {
             e.printStackTrace();

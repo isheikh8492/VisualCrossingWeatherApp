@@ -11,14 +11,14 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean fahrenheit = true;
 
-    private TextView dateTimeTxtView;
+    private TextView currentDateTimeTxtView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Weather Application");
         setContentView(R.layout.activity_main);
-        dateTimeTxtView = findViewById(R.id.dateTimeTxtView);
+        currentDateTimeTxtView = findViewById(R.id.currentDateTimeTxtView);
 
         doDownload();
     }
@@ -26,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
     public void updateData(Weather weather) {
         if (weather == null) {
             String noInternet = "No Internet Connection";
-            dateTimeTxtView.setText(noInternet);
+            currentDateTimeTxtView.setText(noInternet);
             return;
         }
-        Log.d(TAG, "updateData: " + weather.getDateTime());
-        dateTimeTxtView.setText(weather.getDateTime());
+        Log.d(TAG, "updateData: " + weather.getCurrentDateTime());
+        currentDateTimeTxtView.setText(weather.getCurrentDateTime());
 
     }
 
