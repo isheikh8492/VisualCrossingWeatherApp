@@ -8,10 +8,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
     private boolean fahrenheit = true;
-
     private TextView currentDateTimeTxtView;
+    private TextView currentTempTxtView;
+    private TextView currentFeelsLikeTxtView;
+    private TextView currentCloudConditionsTxtView;
+    private TextView currentWindConditionsTxtView;
+    private TextView currentHumidityTxtView;
+    private TextView currentUvIndexTxtView;
+    private TextView currentVisibilityTxtView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Weather Application");
         setContentView(R.layout.activity_main);
         currentDateTimeTxtView = findViewById(R.id.currentDateTimeTxtView);
+        currentTempTxtView = findViewById(R.id.tempTxtView);
+        currentFeelsLikeTxtView = findViewById(R.id.feelsLikeTxtView);
+        currentCloudConditionsTxtView = findViewById(R.id.cloudDescTextView);
+        currentWindConditionsTxtView= findViewById(R.id.windSpeedDirectionTextView);
+        currentHumidityTxtView = findViewById(R.id.humidityTxtView);
+        currentUvIndexTxtView = findViewById(R.id.UVTxtView);
+        currentVisibilityTxtView = findViewById(R.id.visibilityTxtView);
 
         doDownload();
     }
@@ -29,8 +43,20 @@ public class MainActivity extends AppCompatActivity {
             currentDateTimeTxtView.setText(noInternet);
             return;
         }
-        Log.d(TAG, "updateData: " + weather.toString());
+        Log.d(TAG, "updateData: " + weather);
         currentDateTimeTxtView.setText(weather.getCurrentDateTime());
+        currentTempTxtView.setText(weather.getCurrentTemp());
+        currentFeelsLikeTxtView.setText(weather.getCurrentFeelsLike());
+        String currentCloudConditions = weather.getCurrentConditions() + weather.getCurrentCloudCover();
+        currentCloudConditionsTxtView.setText(currentCloudConditions);
+        String currentWindConditions = weather.getCurrentWindDir() + weather.getCurrentWindSpeed() + weather.getCurrentWindGust();
+        currentWindConditionsTxtView.setText(currentWindConditions);
+        currentHumidityTxtView.setText(weather.getCurrentHumidity());
+        currentUvIndexTxtView.setText(weather.getCurrentUvIndex());
+        currentVisibilityTxtView.setText(weather.getCurrentVisibility());
+
+
+
 
     }
 

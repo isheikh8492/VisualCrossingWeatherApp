@@ -71,34 +71,46 @@ public class WeatherDownloader {
 
 
             // "currentTemp" section
-            String jCurrentTemp = jObjMain.getJSONObject("currentConditions").getString("temp");
+            String temp = jObjMain.getJSONObject("currentConditions").getString("temp");
+            String jCurrentTemp = Math.round(Double.parseDouble(temp)) + "\u00B0C";
 
             // "currentFeelsLike" section
-            String jCurrentFeelsLike = jObjMain.getJSONObject("currentConditions").getString("feelslike");
+            String feelsLike = jObjMain.getJSONObject("currentConditions").getString("feelslike");
+            String jCurrentFeelsLike = "Feels Like " + Math.round(Double.parseDouble(feelsLike)) + "\u00B0C";
 
             // "currentHumidity" section
-            String jCurrentHumidity = jObjMain.getJSONObject("currentConditions").getString("humidity");
+            String humidity = jObjMain.getJSONObject("currentConditions").getString("humidity");
+            String jCurrentHumidity = "Humidity: " + humidity + "%";
 
             // "currentUvIndex" section
-            String jCurrentUvIndex = jObjMain.getJSONObject("currentConditions").getString("uvindex");
+            String uvIndex = jObjMain.getJSONObject("currentConditions").getString("uvindex");
+            String jCurrentUvIndex = "UV Index: " + uvIndex;
 
             // "currentConditions" section
             String jCurrentConditions = jObjMain.getJSONObject("currentConditions").getString("conditions");
 
             // "currentCloudCover" section
-            String jCurrentCloudCover = jObjMain.getJSONObject("currentConditions").getString("cloudcover");
+            String cloudCover = jObjMain.getJSONObject("currentConditions").getString("cloudcover");
+            String jCurrentCloudCover = "(" + cloudCover + "% clouds) ";
 
             // "currentWindDir" section
-            String jCurrentWindDir = jObjMain.getJSONObject("currentConditions").getString("winddir");
+            String windDir = jObjMain.getJSONObject("currentConditions").getString("winddir");
+            String jCurrentWindDir = "Winds: " + getDirection(Double.parseDouble(windDir)) + " at ";
 
             // "currentWindSpeed" section
-            String jCurrentWindSpeed = jObjMain.getJSONObject("currentConditions").getString("windspeed");
+            String winddir = jObjMain.getJSONObject("currentConditions").getString("windspeed");
+            String jCurrentWindSpeed = Math.round(Double.parseDouble(winddir)) + " mph ";
 
             // "currentWindGust" section
-            String jCurrentWindGust = jObjMain.getJSONObject("currentConditions").getString("windgust");
+            String windgust = jObjMain.getJSONObject("currentConditions").getString("windgust");
+            String jCurrentWindGust = "";
+            if (!windgust.equals("null")) {
+                jCurrentWindGust = "gusting to " + Math.round(Double.parseDouble(windgust)) + " mph";
+            }
 
             // "currentVisibility" section
-            String jCurrentVisibility = jObjMain.getJSONObject("currentConditions").getString("visibility");
+            String visibility = jObjMain.getJSONObject("currentConditions").getString("visibility");
+            String jCurrentVisibility = "Visibility: " + visibility + " km";
 
             // "currentSunrise" section
             Long jCurrentSunrise = jObjMain.getJSONObject("currentConditions").getLong("sunriseEpoch");
@@ -111,5 +123,25 @@ public class WeatherDownloader {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static String getDirection(double degrees) {
+        if (degrees >= 337.5 || degrees < 22.5)
+            return "N";
+        if (degrees >= 22.5 && degrees < 67.5)
+            return "NE";
+        if (degrees >= 67.5 && degrees < 112.5)
+            return "E";
+        if (degrees >= 112.5 && degrees < 157.5)
+            return "SE";
+        if (degrees >= 157.5 && degrees < 202.5)
+            return "S";
+        if (degrees >= 202.5 && degrees < 247.5)
+            return "SW";
+        if (degrees >= 247.5 && degrees < 292.5)
+            return "W";
+        if (degrees >= 292.5 && degrees < 337.5)
+            return "NW";
+        return "X";
     }
 }
