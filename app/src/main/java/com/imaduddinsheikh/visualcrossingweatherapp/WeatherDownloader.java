@@ -1,5 +1,7 @@
 package com.imaduddinsheikh.visualcrossingweatherapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -91,7 +93,7 @@ public class WeatherDownloader {
 
             // "currentCloudCover" section
             String cloudCover = jObjMain.getJSONObject("currentConditions").getString("cloudcover");
-            String jCurrentCloudCover = "(" + cloudCover + "% clouds) ";
+            String jCurrentCloudCover = " (" + cloudCover + "% clouds) ";
 
             // "currentWindDir" section
             String windDir = jObjMain.getJSONObject("currentConditions").getString("winddir");
@@ -118,8 +120,12 @@ public class WeatherDownloader {
             // "currentSunset" section
             Long jCurrentSunset = jObjMain.getJSONObject("currentConditions").getLong("sunsetEpoch");
 
+            // "currentIcon" section
+            String icon = jObjMain.getJSONObject("currentConditions").getString("icon");
+
             weatherObj = new Weather(jCurrentDateTime, jCurrentTemp, jCurrentFeelsLike, jCurrentHumidity, jCurrentUvIndex, jCurrentConditions, jCurrentCloudCover, jCurrentWindDir, jCurrentWindSpeed, jCurrentWindGust, jCurrentVisibility, jCurrentSunrise, jCurrentSunset);
-            mainActivity.updateData(weatherObj);
+            getIcon(icon);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -140,8 +146,16 @@ public class WeatherDownloader {
             return "SW";
         if (degrees >= 247.5 && degrees < 292.5)
             return "W";
-        if (degrees >= 292.5 && degrees < 337.5)
+        if (degrees >= 292.5)
             return "NW";
         return "X";
+    }
+
+    private static void getIcon(String icon) {
+        icon = icon.replace("-", "_");
+        int resourceId = mainActivity.getResources().getIdentifier(icon, "drawable", mainActivity.getPackageName());
+        Bitmap currentIcon = BitmapFactory.decodeResource(mainActivity.getResources(), resourceId);
+        weatherObj.setCurrentIcon(currentIcon);
+        mainActivity.updateData(weatherObj);
     }
 }

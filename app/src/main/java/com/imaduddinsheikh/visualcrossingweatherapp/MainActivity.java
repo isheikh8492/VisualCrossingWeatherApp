@@ -2,6 +2,7 @@ package com.imaduddinsheikh.visualcrossingweatherapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentHumidityTxtView;
     private TextView currentUvIndexTxtView;
     private TextView currentVisibilityTxtView;
+    private ImageView currentIconImgView;
 
 
 
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         currentHumidityTxtView = findViewById(R.id.humidityTxtView);
         currentUvIndexTxtView = findViewById(R.id.UVTxtView);
         currentVisibilityTxtView = findViewById(R.id.visibilityTxtView);
+        currentIconImgView = findViewById(R.id.iconImgView);
 
         doDownload();
     }
@@ -54,9 +57,7 @@ public class MainActivity extends AppCompatActivity {
         currentHumidityTxtView.setText(weather.getCurrentHumidity());
         currentUvIndexTxtView.setText(weather.getCurrentUvIndex());
         currentVisibilityTxtView.setText(weather.getCurrentVisibility());
-
-
-
+        currentIconImgView.setImageBitmap(weather.getCurrentIcon());
 
     }
 

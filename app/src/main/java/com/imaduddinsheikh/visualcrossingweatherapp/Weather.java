@@ -1,5 +1,9 @@
 package com.imaduddinsheikh.visualcrossingweatherapp;
 
+import android.graphics.Bitmap;
+
+import androidx.annotation.NonNull;
+
 public class Weather {
 
     private final String currentDateTime;
@@ -24,6 +28,8 @@ public class Weather {
     private final Long currentSunrise;
 
     private final Long currentSunset;
+
+    private Bitmap currentIcon;
 
 
 
@@ -95,6 +101,15 @@ public class Weather {
         return currentSunset;
     }
 
+    Bitmap getCurrentIcon() {
+        return this.currentIcon;
+    }
+
+    public void setCurrentIcon(Bitmap currentIcon) {
+        this.currentIcon = currentIcon;
+    }
+
+    @NonNull
     @Override
     public String toString() {
         return "Weather{" +
@@ -111,6 +126,7 @@ public class Weather {
                 ", currentVisibility='" + currentVisibility + '\'' +
                 ", currentSunrise=" + currentSunrise +
                 ", currentSunset=" + currentSunset +
+                ", currentIcon=" + currentIcon +
                 '}';
     }
 }
