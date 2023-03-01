@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Log.d(TAG, "updateData: " + weather);
+        setTitle(weather.getCurrentLocation());
         currentDateTimeTxtView.setText(weather.getCurrentDateTime());
         currentTempTxtView.setText(weather.getCurrentTemp());
         currentFeelsLikeTxtView.setText(weather.getCurrentFeelsLike());

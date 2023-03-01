@@ -63,6 +63,9 @@ public class WeatherDownloader {
         try {
             JSONObject jObjMain = new JSONObject(s);
 
+            // "currentLocation" section
+            String location = jObjMain.getString("resolvedAddress");
+            String jCurrentLocation = location.substring(0, location.lastIndexOf(","));
 
             // "currentDateTime" section
             long dt = jObjMain.getJSONObject("currentConditions").getLong("datetimeEpoch");
@@ -123,7 +126,7 @@ public class WeatherDownloader {
             // "currentIcon" section
             String icon = jObjMain.getJSONObject("currentConditions").getString("icon");
 
-            weatherObj = new Weather(jCurrentDateTime, jCurrentTemp, jCurrentFeelsLike, jCurrentHumidity, jCurrentUvIndex, jCurrentConditions, jCurrentCloudCover, jCurrentWindDir, jCurrentWindSpeed, jCurrentWindGust, jCurrentVisibility, jCurrentSunrise, jCurrentSunset);
+            weatherObj = new Weather(jCurrentLocation, jCurrentDateTime, jCurrentTemp, jCurrentFeelsLike, jCurrentHumidity, jCurrentUvIndex, jCurrentConditions, jCurrentCloudCover, jCurrentWindDir, jCurrentWindSpeed, jCurrentWindGust, jCurrentVisibility, jCurrentSunrise, jCurrentSunset);
             getIcon(icon);
 
         } catch (Exception e) {

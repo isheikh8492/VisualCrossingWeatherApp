@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 public class Weather {
 
+    private final String currentLocation;
     private final String currentDateTime;
     private final String currentTemp;
     private final String currentFeelsLike;
@@ -34,7 +35,8 @@ public class Weather {
 
 
 
-    public Weather(String currentDateTime, String currentTemp, String currentFeelsLike, String currentHumidity, String currentUvIndex, String currentConditions, String currentCloudCover, String currentWindDir, String currentWindSpeed, String currentWindGust, String currentVisibility, Long currentSunrise, Long currentSunset) {
+    public Weather(String currentLocation, String currentDateTime, String currentTemp, String currentFeelsLike, String currentHumidity, String currentUvIndex, String currentConditions, String currentCloudCover, String currentWindDir, String currentWindSpeed, String currentWindGust, String currentVisibility, Long currentSunrise, Long currentSunset) {
+        this.currentLocation = currentLocation;
         this.currentDateTime = currentDateTime;
         this.currentTemp = currentTemp;
         this.currentFeelsLike = currentFeelsLike;
@@ -50,6 +52,7 @@ public class Weather {
         this.currentSunset = currentSunset;
     }
 
+    String getCurrentLocation() { return currentLocation;}
     String getCurrentDateTime() {
         return this.currentDateTime;
     }
