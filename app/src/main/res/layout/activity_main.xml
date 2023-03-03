@@ -9,14 +9,117 @@
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/afterNoonConstraint"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/MAENConstraint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/currentWeatherConstraint">
 
+        <TextView
+            android:id="@+id/nightTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Night"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintStart_toEndOf="@+id/eveningTxtView" />
+
+        <TextView
+            android:id="@+id/eveningTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Evening"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/nightTxtView"
+            app:layout_constraintStart_toEndOf="@+id/afternoonTxtView" />
+
+        <TextView
+            android:id="@+id/afternoonTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Afternoon"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/eveningTxtView"
+            app:layout_constraintStart_toEndOf="@+id/morningTxtView" />
+
+        <TextView
+            android:id="@+id/nightTempTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="70*F"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/nightTxtView"
+            app:layout_constraintEnd_toEndOf="@+id/nightTxtView"
+            app:layout_constraintStart_toStartOf="@+id/nightTxtView" />
+
+        <TextView
+            android:id="@+id/eveningTempTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="70*F"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/eveningTxtView"
+            app:layout_constraintEnd_toEndOf="@+id/eveningTxtView"
+            app:layout_constraintStart_toStartOf="@+id/eveningTxtView" />
+
+        <TextView
+            android:id="@+id/afternoonTempTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="70*F"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/afternoonTxtView"
+            app:layout_constraintEnd_toEndOf="@+id/afternoonTxtView"
+            app:layout_constraintStart_toStartOf="@+id/afternoonTxtView" />
+
+        <TextView
+            android:id="@+id/morningTempTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="70*F"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:flow_horizontalAlign="center"
+            app:flow_verticalAlign="center"
+            app:layout_constraintBottom_toTopOf="@+id/morningTxtView"
+            app:layout_constraintEnd_toEndOf="@+id/morningTxtView"
+            app:layout_constraintStart_toStartOf="@+id/morningTxtView" />
+
+        <TextView
+            android:id="@+id/morningTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Morning"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            app:flow_horizontalAlign="center"
+            app:flow_verticalAlign="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/afternoonTxtView"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -36,11 +139,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/currentWeatherConstraint"
-        android:layout_width="0dp"
-        android:layout_height="310dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/currentDateTimeTxtView">
+        android:layout_width="411dp"
+        android:layout_height="270dp"
+        tools:layout_editor_absoluteY="29dp">
 
         <TextView
             android:id="@+id/humidityTxtView"
@@ -136,6 +237,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/alert" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/WeatherRecyclerView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MAENConstraint">
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

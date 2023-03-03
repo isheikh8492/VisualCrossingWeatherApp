@@ -20,6 +20,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentVisibilityTxtView;
     private ImageView currentIconImgView;
 
+    private TextView morningDayTempTxtView;
+
+    private TextView afternoonDayTempTxtView;
+
+    private TextView eveningDayTempTxtView;
+
+    private TextView nightDayTempTxtView;
+
 
 
     @Override
@@ -36,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         currentUvIndexTxtView = findViewById(R.id.UVTxtView);
         currentVisibilityTxtView = findViewById(R.id.visibilityTxtView);
         currentIconImgView = findViewById(R.id.iconImgView);
+        morningDayTempTxtView = findViewById(R.id.morningTempTxtView);
+        afternoonDayTempTxtView = findViewById(R.id.afternoonTempTxtView);
+        eveningDayTempTxtView = findViewById(R.id.eveningTempTxtView);
+        nightDayTempTxtView = findViewById(R.id.nightTempTxtView);
 
         doDownload();
     }
@@ -59,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         currentUvIndexTxtView.setText(weather.getCurrentUvIndex());
         currentVisibilityTxtView.setText(weather.getCurrentVisibility());
         currentIconImgView.setImageBitmap(weather.getCurrentIcon());
+        morningDayTempTxtView.setText(weather.getMorningDayTemp());
+        afternoonDayTempTxtView.setText(weather.getAfternoonDayTemp());
+        eveningDayTempTxtView.setText(weather.getEveningDayTemp());
+        nightDayTempTxtView.setText(weather.getNightDayTemp());
 
     }
 

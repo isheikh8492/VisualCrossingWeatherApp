@@ -126,7 +126,27 @@ public class WeatherDownloader {
             // "currentIcon" section
             String icon = jObjMain.getJSONObject("currentConditions").getString("icon");
 
-            weatherObj = new Weather(jCurrentLocation, jCurrentDateTime, jCurrentTemp, jCurrentFeelsLike, jCurrentHumidity, jCurrentUvIndex, jCurrentConditions, jCurrentCloudCover, jCurrentWindDir, jCurrentWindSpeed, jCurrentWindGust, jCurrentVisibility, jCurrentSunrise, jCurrentSunset);
+            // "morningDayTemp" section
+            String morningDayTemp = jObjMain.getJSONArray("days").getJSONObject(0).getJSONArray("hours")
+                    .getJSONObject(8).getString("temp");
+            String jMorningDayTemp = Math.round(Double.parseDouble(morningDayTemp)) + "\u00B0C";
+
+            // "afternoonDayTemp" section
+            String afternoonDayTemp = jObjMain.getJSONArray("days").getJSONObject(0).getJSONArray("hours")
+                    .getJSONObject(13).getString("temp");
+            String jAfternoonDayTemp = Math.round(Double.parseDouble(afternoonDayTemp)) + "\u00B0C";
+
+            // "eveningDayTemp" section
+            String eveningDayTemp = jObjMain.getJSONArray("days").getJSONObject(0).getJSONArray("hours")
+                    .getJSONObject(17).getString("temp");
+            String jEveningDayTemp = Math.round(Double.parseDouble(eveningDayTemp)) + "\u00B0C";
+
+            // "nightDayTemp" section
+            String nightDayTemp = jObjMain.getJSONArray("days").getJSONObject(0).getJSONArray("hours")
+                    .getJSONObject(23).getString("temp");
+            String jNightDayTemp = Math.round(Double.parseDouble(nightDayTemp)) + "\u00B0C";
+
+            weatherObj = new Weather(jCurrentLocation, jCurrentDateTime, jCurrentTemp, jCurrentFeelsLike, jCurrentHumidity, jCurrentUvIndex, jCurrentConditions, jCurrentCloudCover, jCurrentWindDir, jCurrentWindSpeed, jCurrentWindGust, jCurrentVisibility, jCurrentSunrise, jCurrentSunset, jMorningDayTemp, jAfternoonDayTemp, jEveningDayTemp, jNightDayTemp);
             getIcon(icon);
 
         } catch (Exception e) {
