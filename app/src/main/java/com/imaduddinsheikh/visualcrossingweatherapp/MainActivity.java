@@ -2,13 +2,20 @@ package com.imaduddinsheikh.visualcrossingweatherapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
+
+    private RecyclerView recyclerView;
+    private WeatherDaysAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
     private boolean fahrenheit = true;
     private TextView currentDateTimeTxtView;
     private TextView currentTempTxtView;
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         afternoonDayTempTxtView = findViewById(R.id.afternoonTempTxtView);
         eveningDayTempTxtView = findViewById(R.id.eveningTempTxtView);
         nightDayTempTxtView = findViewById(R.id.nightTempTxtView);
+        recyclerView = findViewById(R.id.WeatherDayRecyclerView);
 
         doDownload();
     }
@@ -76,9 +84,19 @@ public class MainActivity extends AppCompatActivity {
         eveningDayTempTxtView.setText(weather.getEveningDayTemp());
         nightDayTempTxtView.setText(weather.getNightDayTemp());
 
+        adapter = new WeatherDaysAdapter(weather.getWeatherDayList(), this);
+        recyclerView.setAdapter(adapter);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
     }
 
     private void doDownload() {
         WeatherDownloader.downloadWeather(this, fahrenheit);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

@@ -2,6 +2,10 @@ package com.imaduddinsheikh.visualcrossingweatherapp;
 
 import android.graphics.Bitmap;
 
+import androidx.annotation.NonNull;
+
+import java.util.List;
+
 public class Weather {
 
     private final String currentLocation;
@@ -38,10 +42,12 @@ public class Weather {
 
     private Bitmap currentIcon;
 
+    private List<WeatherDay> weatherDayList;
 
 
 
-    public Weather(String currentLocation, String currentDateTime, String currentTemp, String currentFeelsLike, String currentHumidity, String currentUvIndex, String currentConditions, String currentCloudCover, String currentWindDir, String currentWindSpeed, String currentWindGust, String currentVisibility, Long currentSunrise, Long currentSunset, String morningDayTemp, String afternoonDayTemp, String eveningDayTemp, String nightDayTemp) {
+
+    public Weather(String currentLocation, String currentDateTime, String currentTemp, String currentFeelsLike, String currentHumidity, String currentUvIndex, String currentConditions, String currentCloudCover, String currentWindDir, String currentWindSpeed, String currentWindGust, String currentVisibility, Long currentSunrise, Long currentSunset, String morningDayTemp, String afternoonDayTemp, String eveningDayTemp, String nightDayTemp, List<WeatherDay> weatherDayList) {
         this.currentLocation = currentLocation;
         this.currentDateTime = currentDateTime;
         this.currentTemp = currentTemp;
@@ -60,6 +66,7 @@ public class Weather {
         this.afternoonDayTemp = afternoonDayTemp;
         this.eveningDayTemp = eveningDayTemp;
         this.nightDayTemp = nightDayTemp;
+        this.weatherDayList = weatherDayList;
     }
 
     String getCurrentLocation() { return this.currentLocation;}
@@ -132,10 +139,19 @@ public class Weather {
 
     Bitmap getCurrentIcon() { return this.currentIcon; }
 
+    public List<WeatherDay> getWeatherDayList() {
+        return weatherDayList;
+    }
+
+    public void setWeatherDayList(List<WeatherDay> weatherDayList) {
+        this.weatherDayList = weatherDayList;
+    }
+
     public void setCurrentIcon(Bitmap currentIcon) {
         this.currentIcon = currentIcon;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Weather{" +
@@ -158,6 +174,7 @@ public class Weather {
                 ", eveningDayTemp='" + eveningDayTemp + '\'' +
                 ", nightDayTemp='" + nightDayTemp + '\'' +
                 ", currentIcon=" + currentIcon +
+                ", weatherDayList=" + weatherDayList +
                 '}';
     }
 }

@@ -10,10 +10,13 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class WeatherDownloader {
@@ -146,7 +149,41 @@ public class WeatherDownloader {
                     .getJSONObject(23).getString("temp");
             String jNightDayTemp = Math.round(Double.parseDouble(nightDayTemp)) + "\u00B0C";
 
-            weatherObj = new Weather(jCurrentLocation, jCurrentDateTime, jCurrentTemp, jCurrentFeelsLike, jCurrentHumidity, jCurrentUvIndex, jCurrentConditions, jCurrentCloudCover, jCurrentWindDir, jCurrentWindSpeed, jCurrentWindGust, jCurrentVisibility, jCurrentSunrise, jCurrentSunset, jMorningDayTemp, jAfternoonDayTemp, jEveningDayTemp, jNightDayTemp);
+            // "48 Hour RecyclerView" section
+            List<WeatherDay> jWeatherDayList = new ArrayList<>();
+            JSONArray jsonArray = jObjMain.getJSONArray("days");
+            SimpleDateFormat logTime = new SimpleDateFormat("EEEE h:mm a", Locale.getDefault());
+            Log.d(TAG, "parseJSON: " + logTime.format(jsonArray.getJSONObject(13).getJSONArray("hours").getJSONObject(20).getLong("datetimeEpoch")));
+            Log.d(TAG, "parseJSON: LENGTH OF JSONArray " + logTime.format(dt));
+            int count = 0;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                for (int j = 0;j < jsonArray.getJSONObject(i).getJSONArray("hours").length();j++) {
+                    Long dtToCompare = jsonArray.getJSONObject(i).getJSONArray("hours").getJSONObject(j).getLong("datetimeEpoch");
+                    Date dateTimeToCompare = new Date(dtToCompare * 1000);
+                    if (dtToCompare >= dt && count < 48) {
+                        Log.d(TAG, "parseJSON: " + logTime.format(dateTimeToCompare));
+
+                        String weatherDayName = "Today";
+                        SimpleDateFormat dayOnly = new SimpleDateFormat("EEEE", Locale.getDefault());
+                        if (!dayOnly.format(dateTimeToCompare).equals(dayOnly.format(dateTime))) {
+                            weatherDayName = dayOnly.format(dateTimeToCompare);
+                        }
+                        SimpleDateFormat timeOnly = new SimpleDateFormat("h:mm a", Locale.getDefault());
+                        String weatherDayTime = timeOnly.format(dateTimeToCompare);
+                        String iconOnly = jsonArray.getJSONObject(i).getJSONArray("hours").getJSONObject(j).getString("icon");
+                        Bitmap weatherDayIcon = getweatherDayIcon(iconOnly);
+                        String tempOnly = jsonArray.getJSONObject(i).getJSONArray("hours").getJSONObject(j).getString("temp");
+                        String weatherDayTemp = String.valueOf(Math.round(Double.parseDouble(tempOnly)));
+                        String weatherDayConditions = jsonArray.getJSONObject(i).getJSONArray("hours").getJSONObject(j).getString("conditions");
+                        WeatherDay weatherDay = new WeatherDay(weatherDayName, weatherDayTime, weatherDayIcon, weatherDayTemp, weatherDayConditions);
+                        jWeatherDayList.add(weatherDay);
+                        count++;
+                    }
+                }
+            }
+
+
+            weatherObj = new Weather(jCurrentLocation, jCurrentDateTime, jCurrentTemp, jCurrentFeelsLike, jCurrentHumidity, jCurrentUvIndex, jCurrentConditions, jCurrentCloudCover, jCurrentWindDir, jCurrentWindSpeed, jCurrentWindGust, jCurrentVisibility, jCurrentSunrise, jCurrentSunset, jMorningDayTemp, jAfternoonDayTemp, jEveningDayTemp, jNightDayTemp, jWeatherDayList);
             getIcon(icon);
 
         } catch (Exception e) {
@@ -180,5 +217,11 @@ public class WeatherDownloader {
         Bitmap currentIcon = BitmapFactory.decodeResource(mainActivity.getResources(), resourceId);
         weatherObj.setCurrentIcon(currentIcon);
         mainActivity.updateData(weatherObj);
+    }
+
+    private static Bitmap getweatherDayIcon(String icon) {
+        icon = icon.replace("-", "_");
+        int resourceId = mainActivity.getResources().getIdentifier(icon, "drawable", mainActivity.getPackageName());
+        return BitmapFactory.decodeResource(mainActivity.getResources(), resourceId);
     }
 }
