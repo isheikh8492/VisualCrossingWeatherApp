@@ -121,10 +121,16 @@ public class WeatherDownloader {
             String jCurrentVisibility = "Visibility: " + visibility + " km";
 
             // "currentSunrise" section
-            Long jCurrentSunrise = jObjMain.getJSONObject("currentConditions").getLong("sunriseEpoch");
+            long dtSunrise = jObjMain.getJSONObject("currentConditions").getLong("sunriseEpoch");
+            Date dateTimeSunrise = new Date(dtSunrise * 1000); // Java time values need milliseconds
+            SimpleDateFormat timeOnly =
+                    new SimpleDateFormat("h:mm a", Locale.getDefault());
+            String jCurrentSunrise = "Sunrise: " + timeOnly.format(dateTimeSunrise);
 
             // "currentSunset" section
-            Long jCurrentSunset = jObjMain.getJSONObject("currentConditions").getLong("sunsetEpoch");
+            long dtSunset = jObjMain.getJSONObject("currentConditions").getLong("sunsetEpoch");
+            Date dateTimeSunset = new Date(dtSunset * 1000); // Java time values need milliseconds
+            String jCurrentSunset = "Sunset: " + timeOnly.format(dateTimeSunset);
 
             // "currentIcon" section
             String icon = jObjMain.getJSONObject("currentConditions").getString("icon");
@@ -158,7 +164,7 @@ public class WeatherDownloader {
             int count = 0;
             for (int i = 0; i < jsonArray.length(); i++) {
                 for (int j = 0;j < jsonArray.getJSONObject(i).getJSONArray("hours").length();j++) {
-                    Long dtToCompare = jsonArray.getJSONObject(i).getJSONArray("hours").getJSONObject(j).getLong("datetimeEpoch");
+                    long dtToCompare = jsonArray.getJSONObject(i).getJSONArray("hours").getJSONObject(j).getLong("datetimeEpoch");
                     Date dateTimeToCompare = new Date(dtToCompare * 1000);
                     if (dtToCompare >= dt && count < 48) {
                         Log.d(TAG, "parseJSON: " + logTime.format(dateTimeToCompare));
@@ -168,7 +174,6 @@ public class WeatherDownloader {
                         if (!dayOnly.format(dateTimeToCompare).equals(dayOnly.format(dateTime))) {
                             weatherDayName = dayOnly.format(dateTimeToCompare);
                         }
-                        SimpleDateFormat timeOnly = new SimpleDateFormat("h:mm a", Locale.getDefault());
                         String weatherDayTime = timeOnly.format(dateTimeToCompare);
                         String iconOnly = jsonArray.getJSONObject(i).getJSONArray("hours").getJSONObject(j).getString("icon");
                         Bitmap weatherDayIcon = getweatherDayIcon(iconOnly);

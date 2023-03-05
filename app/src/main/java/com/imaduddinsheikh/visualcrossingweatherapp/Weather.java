@@ -28,9 +28,9 @@ public class Weather {
 
     private final String currentVisibility;
 
-    private final Long currentSunrise;
+    private final String currentSunrise;
 
-    private final Long currentSunset;
+    private final String currentSunset;
 
     private final String morningDayTemp;
 
@@ -47,7 +47,7 @@ public class Weather {
 
 
 
-    public Weather(String currentLocation, String currentDateTime, String currentTemp, String currentFeelsLike, String currentHumidity, String currentUvIndex, String currentConditions, String currentCloudCover, String currentWindDir, String currentWindSpeed, String currentWindGust, String currentVisibility, Long currentSunrise, Long currentSunset, String morningDayTemp, String afternoonDayTemp, String eveningDayTemp, String nightDayTemp, List<WeatherDay> weatherDayList) {
+    public Weather(String currentLocation, String currentDateTime, String currentTemp, String currentFeelsLike, String currentHumidity, String currentUvIndex, String currentConditions, String currentCloudCover, String currentWindDir, String currentWindSpeed, String currentWindGust, String currentVisibility, String currentSunrise, String currentSunset, String morningDayTemp, String afternoonDayTemp, String eveningDayTemp, String nightDayTemp, List<WeatherDay> weatherDayList) {
         this.currentLocation = currentLocation;
         this.currentDateTime = currentDateTime;
         this.currentTemp = currentTemp;
@@ -113,11 +113,11 @@ public class Weather {
         return this.currentVisibility;
     }
 
-    public Long getCurrentSunrise() {
+    public String getCurrentSunrise() {
         return this.currentSunrise;
     }
 
-    public Long getCurrentSunset() {
+    public String getCurrentSunset() {
         return this.currentSunset;
     }
 

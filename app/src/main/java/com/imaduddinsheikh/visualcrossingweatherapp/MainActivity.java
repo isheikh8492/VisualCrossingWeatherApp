@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView nightDayTempTxtView;
 
+    private TextView sunriseTxtView;
+
+    private TextView sunsetTxtView;
+
 
 
     @Override
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         afternoonDayTempTxtView = findViewById(R.id.afternoonTempTxtView);
         eveningDayTempTxtView = findViewById(R.id.eveningTempTxtView);
         nightDayTempTxtView = findViewById(R.id.nightTempTxtView);
+        sunriseTxtView = findViewById(R.id.sunriseTxtView);
+        sunsetTxtView = findViewById(R.id.sunsetTxtView);
         recyclerView = findViewById(R.id.WeatherDayRecyclerView);
 
         doDownload();
@@ -83,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         afternoonDayTempTxtView.setText(weather.getAfternoonDayTemp());
         eveningDayTempTxtView.setText(weather.getEveningDayTemp());
         nightDayTempTxtView.setText(weather.getNightDayTemp());
+        sunriseTxtView.setText(weather.getCurrentSunrise());
+        sunsetTxtView.setText(weather.getCurrentSunset());
 
         adapter = new WeatherDaysAdapter(weather.getWeatherDayList(), this);
         recyclerView.setAdapter(adapter);
